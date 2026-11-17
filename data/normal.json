@@ -1,0 +1,33 @@
+{
+  "allowed_origins": [
+    "https://local-source-008.example.test"
+  ],
+  "steps": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://local-source-008.example.test/records/auction_result-A",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "response": {
+        "file": "source-1.bin",
+        "status": 200,
+        "bytes": 153,
+        "sha256": "974d8ff883b828c0b6f52f007cd5f772c47686f40b144498bad62d1848b6e85a"
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "https://local-source-008.example.test/records/resale_notice-B",
+        "body_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "response": {
+        "file": "source-2.bin",
+        "status": 200,
+        "bytes": 149,
+        "sha256": "803ccb34d35163c8a9491d3f227ad109579a318dcca10dd51824315314ffc2b8"
+      }
+    }
+  ]
+}
