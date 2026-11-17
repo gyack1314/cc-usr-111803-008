@@ -2,7 +2,8 @@
   "kind": "auction_result",
   "id": "auction_result-A",
   "revision": "v1",
-  "period": "2026-11-13",
-  "subject": "sample-A",
-  "state": "corrected-copy"
+  "lot": "P-7",
+  "buyer": "育肥场甲",
+  "heads": 120,
+  "variant": "conflicting-copy"
 }

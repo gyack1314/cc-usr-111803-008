@@ -1,8 +1,9 @@
 {
   "kind": "resale_notice",
-  "id": "resale_notice-B",
+  "id": "resale_notice-A",
   "revision": "v1",
-  "period": "2026-11-13",
-  "subject": "sample-A",
-  "state": "pending"
+  "lot": "P-7",
+  "seller": "育肥场甲",
+  "buyer": "屠企乙",
+  "heads": 80
 }

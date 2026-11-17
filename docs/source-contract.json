@@ -1,0 +1,25 @@
+{
+  "roles": [
+    "auction_result",
+    "resale_notice"
+  ],
+  "relation_field": "lot",
+  "required_fields": {
+    "auction_result": [
+      "lot",
+      "buyer",
+      "heads"
+    ],
+    "resale_notice": [
+      "lot",
+      "seller",
+      "buyer",
+      "heads"
+    ]
+  },
+  "source_identity": [
+    "kind",
+    "id",
+    "revision"
+  ]
+}
