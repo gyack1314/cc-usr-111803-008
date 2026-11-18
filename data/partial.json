@@ -6,12 +6,14 @@
     {
       "url": "https://local-source-008.example.test/records/auction_result-A",
       "kind": "auction_result",
-      "required": true
+      "required": true,
+      "expected_revision": "v1"
     },
     {
       "url": "https://local-source-008.example.test/records/resale_notice-B",
       "kind": "resale_notice",
-      "required": true
+      "required": true,
+      "expected_revision": "v1"
     }
   ],
   "steps": [
