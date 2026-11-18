@@ -9,19 +9,25 @@
     "auction_result": [
       "lot",
       "buyer",
-      "heads"
+      "heads",
+      "transaction_id",
+      "effective_on"
     ],
     "resale_notice": [
       "lot",
       "seller",
       "buyer",
-      "heads"
+      "heads",
+      "transaction_id",
+      "effective_on",
+      "buyer_type"
     ],
     "transaction_retraction": [
       "lot",
       "transaction_id",
       "effective_on",
-      "heads"
+      "heads",
+      "reason"
     ]
   },
   "source_identity": [

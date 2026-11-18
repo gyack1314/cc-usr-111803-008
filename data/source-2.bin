@@ -5,5 +5,8 @@
   "lot": "P-7",
   "seller": "育肥场甲",
   "buyer": "屠企乙",
-  "heads": 80
+  "heads": 80,
+  "transaction_id": "SALE-1",
+  "effective_on": "2026-11-15",
+  "buyer_type": "屠宰企业"
 }

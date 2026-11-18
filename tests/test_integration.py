@@ -4,6 +4,8 @@ from pathlib import Path
 from capture_service.transport import Replay
 from capture_service.ledger import connect,receive
 from capture_service.view import overview
+from capture_service.trades import records
+from capture_service.inventory import lots
 
 ROOT=Path(__file__).resolve().parents[1]
 COLLECTION='pork-008'
@@ -21,6 +23,8 @@ class Integration(unittest.TestCase):
         self.assertTrue(view['publishable'])
         self.assertFalse(view['reasons'])
         self.assertEqual(db.execute('SELECT COUNT(*) FROM receipts').fetchone()[0],len(replay.steps))
+        self.assertEqual([row['transaction_id'] for row in records(db,COLLECTION)],['BUY-1','SALE-1'])
+        self.assertEqual(lots(db,COLLECTION)[0]['heads_remaining'],40)
         db.close()
 
     def test_authorization_scope(self):

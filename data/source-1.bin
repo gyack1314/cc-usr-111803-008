@@ -4,5 +4,7 @@
   "revision": "v1",
   "lot": "P-7",
   "buyer": "育肥场甲",
-  "heads": 120
+  "heads": 120,
+  "transaction_id": "BUY-1",
+  "effective_on": "2026-11-14"
 }

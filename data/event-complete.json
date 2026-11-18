@@ -32,8 +32,8 @@
       "response": {
         "file": "source-event.bin",
         "status": 200,
-        "bytes": 187,
-        "sha256": "87bf2e4ac456c8aafab5b70cf4dbb113bebff02e1026f9a789b85f79078c0e12"
+        "bytes": 222,
+        "sha256": "285a64c58fe6f146ee71ba7675927d6043be0850dd3b1a846cd19548afba2253"
       }
     }
   ]
