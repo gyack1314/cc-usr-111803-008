@@ -55,30 +55,58 @@ def progress(connection, collection):
                 'SELECT source_url,body_sha256,received_at FROM collection_progress WHERE collection=? ORDER BY source_url',
                 (collection,))]
 
+def received_revisions(connection, collection, source_url):
+    """某来源链接已接收并经账本核对的来源版次集合。"""
+    initialize(connection)
+    return {row[0] for row in connection.execute(
+        'SELECT e.version FROM entities e JOIN receipts r '
+        'ON r.collection=e.collection AND r.body_sha256=e.receipt_sha256 '
+        'WHERE e.collection=? AND r.source_url=?', (collection, source_url))}
+
+def pending_requirements(connection, collection):
+    """目录要求但尚未核实的来源：未接收或版次不符；标记待核而不是按零头数处理。"""
+    initialize(connection)
+    pending = []
+    rows = connection.execute(
+        'SELECT source_url,source_kind,required,expected_revision FROM collection_sources '
+        'WHERE collection=? ORDER BY source_url', (collection,)).fetchall()
+    for url, kind, required, expected in rows:
+        versions = received_revisions(connection, collection, url)
+        if required and not versions:
+            pending.append({'url': url, 'kind': kind, 'reason': '来源尚未接收'})
+        elif expected and expected not in versions:
+            pending.append({'url': url, 'kind': kind, 'reason': '来源版次待核',
+                            'expected_revision': expected})
+    return pending
+
 def coverage(connection, collection):
     """区分来源接收进度与已核实的业务资料范围。"""
     initialize(connection)
     rows = connection.execute(
-        'SELECT s.source_url,s.source_kind,s.required,COUNT(p.body_sha256) '
+        'SELECT s.source_url,s.source_kind,s.required,s.expected_revision,COUNT(p.body_sha256) '
         'FROM collection_sources s LEFT JOIN collection_progress p '
         'ON p.collection=s.collection AND p.source_url=s.source_url '
-        'WHERE s.collection=? GROUP BY s.source_url,s.source_kind,s.required ORDER BY s.source_url',
+        'WHERE s.collection=? GROUP BY s.source_url,s.source_kind,s.required,s.expected_revision ORDER BY s.source_url',
         (collection,)).fetchall()
     view = assess(entities(connection, collection))
     verified = {source for pair in view['matched_pairs']
                 for source in (pair['left_source'], pair['right_source'])}
+    verified |= {item['source'] for item in view['retractions'] if item['resolved']}
     sources = []
-    for url, kind, required, received in rows:
+    for url, kind, required, expected, received in rows:
+        revisions = received_revisions(connection, collection, url)
         sources.append(dict(url=url, kind=kind, required=bool(required),
+                            expected_revision=expected,
                             received_versions=received,
+                            revision_pending=bool(expected) and expected not in revisions,
                             verified=any(digest in verified for digest, in connection.execute(
                                 'SELECT p.body_sha256 FROM collection_progress p JOIN receipts r '
                                 'ON r.collection=p.collection AND r.body_sha256=p.body_sha256 '
                                 'WHERE p.collection=? AND p.source_url=? AND r.source_url=p.source_url',
                                 (collection, url)))))
-    return {'expected': len(rows), 'received': sum(bool(row[3]) for row in rows),
-            'missing_required': [row[0] for row in rows if row[2] and not row[3]],
+    return {'expected': len(rows), 'received': sum(bool(row[4]) for row in rows),
+            'missing_required': [row[0] for row in rows if row[2] and not row[4]],
+            'revision_pending': [item['url'] for item in sources if item['revision_pending']],
             'unverified_required': [item['url'] for item in sources
                                     if item['required'] and not item['verified']],
             'sources': sources}
-
