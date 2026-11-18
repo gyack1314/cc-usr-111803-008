@@ -26,8 +26,8 @@
       "response": {
         "file": "source-revised.bin",
         "status": 200,
-        "bytes": 199,
-        "sha256": "932818c1c160fe82ffe849a6c757ebda16e360cc22cc953874b5fc409c5cf664"
+        "bytes": 198,
+        "sha256": "b44d892a6207555abbb836a6f270ec935b6f3ee8e3284eca24c37e7d33831d45"
       }
     }
   ]
