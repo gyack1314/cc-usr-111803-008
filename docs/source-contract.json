@@ -1,7 +1,8 @@
 {
   "roles": [
     "auction_result",
-    "resale_notice"
+    "resale_notice",
+    "transaction_retraction"
   ],
   "relation_field": "lot",
   "required_fields": {
@@ -14,6 +15,12 @@
       "lot",
       "seller",
       "buyer",
+      "heads"
+    ],
+    "transaction_retraction": [
+      "lot",
+      "transaction_id",
+      "effective_on",
       "heads"
     ]
   },

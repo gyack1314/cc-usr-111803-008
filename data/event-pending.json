@@ -1,0 +1,23 @@
+{
+  "allowed_origins": [
+    "https://local-source-008.example.test"
+  ],
+  "sources": [
+    {
+      "url": "https://local-source-008.example.test/records/auction_result-A",
+      "kind": "auction_result",
+      "required": true
+    },
+    {
+      "url": "https://local-source-008.example.test/records/resale_notice-B",
+      "kind": "resale_notice",
+      "required": true
+    },
+    {
+      "url": "https://local-source-008.example.test/records/transaction_retraction-A",
+      "kind": "transaction_retraction",
+      "required": true
+    }
+  ],
+  "steps": []
+}
